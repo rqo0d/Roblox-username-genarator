@@ -1,0 +1,8 @@
+{
+  "total_length": 5,
+  "count": 20,
+  "use_numbers": true,
+  "use_letters": true,
+  "delay_seconds": 1,
+  "save_file": "free_usernames.txt"
+}
