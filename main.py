@@ -361,12 +361,11 @@ class App(tk.Tk):
                        activeforeground=TEXT, font=FM,
                        command=self._toggle_out_discord
                        ).pack(anchor="w", padx=14, pady=(8, 0))
-        self.entry_webhook = tk.Entry(op, font=FMONO, bg=BG3, fg=TEXT_DIM,
+        self.entry_webhook = tk.Entry(op, font=FMONO, bg=BG3, fg=TEXT,
                                       insertbackground=TEXT, relief="flat",
                                       highlightthickness=1,
                                       highlightbackground=BORDER,
-                                      highlightcolor=ACCENT,
-                                      state="disabled")
+                                      highlightcolor=ACCENT)
         self.entry_webhook.pack(fill="x", padx=28, pady=(3, 4))
         self._placeholder(self.entry_webhook, "https://discord.com/api/webhooks/...")
 
@@ -391,6 +390,7 @@ class App(tk.Tk):
             cfg["discord_id"] = val
             save_config_file(cfg)
         self.entry_discord_id.bind("<KeyRelease>", _save_id)
+        self.entry_discord_id.bind("<<Paste>>",    lambda e: self.after(10, _save_id))
 
         tk.Label(op, text="How to get: Settings > Advanced > Developer Mode ON\nthen right-click your name > Copy User ID",
                  bg=CARD, fg=TEXT_DIM, font=("Segoe UI", 8),
@@ -531,8 +531,7 @@ class App(tk.Tk):
             state="normal" if self.var_out_file.get() else "disabled")
 
     def _toggle_out_discord(self):
-        self.entry_webhook.configure(
-            state="normal" if self.var_out_discord.get() else "disabled")
+        pass  # webhook entry is always editable
 
     # Config
     def _load_cfg(self):
@@ -549,10 +548,8 @@ class App(tk.Tk):
         self.entry_file.config(fg=TEXT)
         wh = cfg.get("discord_webhook", "")
         if wh:
-            self.entry_webhook.configure(state="normal")
             self.entry_webhook.delete(0, "end")
             self.entry_webhook.insert(0, wh)
-            self.entry_webhook.config(fg=TEXT)
             self.var_out_discord.set(True)
             self.lbl_wh_status.config(text="✅ Valid webhook", fg=GREEN)
         did = cfg.get("discord_id", "")
@@ -562,7 +559,6 @@ class App(tk.Tk):
             self.entry_discord_id.config(fg=TEXT)
 
     def _save_cfg(self):
-        ph = "https://discord.com/api/webhooks/..."
         wh = self.entry_webhook.get().strip()
         save_config_file({
             "total_length":    self.var_len.get(),
@@ -572,7 +568,7 @@ class App(tk.Tk):
             "use_letters":     self.var_letters.get(),
             "use_numbers":     self.var_numbers.get(),
             "save_file":       self.entry_file.get(),
-            "discord_webhook": wh if wh != ph else "",
+            "discord_webhook": wh,
             "discord_id": self.entry_discord_id.get().strip()
                           if self.entry_discord_id.get().strip() not in
                              ("e.g.  123456789012345678", "") else ""
@@ -632,15 +628,12 @@ class App(tk.Tk):
             rand_len = self.var_rlen.get()
 
         # Output
-        ph_wh   = "https://discord.com/api/webhooks/..."
         raw_wh  = self.entry_webhook.get().strip()
         use_discord = self.var_out_discord.get()
-        webhook = raw_wh if (use_discord and raw_wh and raw_wh != ph_wh
+        webhook = raw_wh if (use_discord and raw_wh
                              and raw_wh.startswith("https://discord")) else None
-        ph_id   = "e.g.  123456789012345678"
         raw_id  = self.entry_discord_id.get().strip()
-        discord_id = raw_id if (raw_id and raw_id != ph_id
-                                and raw_id.isdigit()) else None
+        discord_id = raw_id if (raw_id and raw_id.isdigit()) else None
 
         if not use_letters and not use_numbers:
             messagebox.showerror("Error", "Enable at least letters or numbers!")
