@@ -7,5 +7,12 @@
   "cooldown_seconds": 60,
   "save_file": "free_usernames.txt",
   "discord_webhook": "",
-  "discord_id": ""
+  "discord_id": "",
+  "theme": "dark",
+  "sound_notify": true,
+  "open_roblox": false,
+  "gen_mode": "standard",
+  "pattern": "LLDD",
+  "threads": 1,
+  "auto_pause_errors": 5
 }
