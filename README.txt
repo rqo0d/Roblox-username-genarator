@@ -8,124 +8,134 @@
 
   Put all files in ONE folder:
 
-    main.py   ← run this
-    config.json              ← settings (auto-saved)
-    README.txt               ← this file
+    main.py              ← run this
+    config.json          ← all settings
+    README.txt           ← this file
 
-  After first run:
-    free_usernames.txt       ← free usernames saved here
+  Created automatically after first run:
+    free_usernames.txt   ← free usernames saved here
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ⚙️  REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Python 3.6+  →  https://www.python.org/downloads/
-
   ⚠️  Windows: check "Add Python to PATH" during install!
-
-  No pip install needed — only built-in Python modules are used.
+  No pip install needed — only built-in Python modules.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   🚀  HOW TO RUN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Windows:
-    1. Shift + Right-click in the folder → "Open PowerShell here"
-    2. Type:  python main.py
-
-  Mac / Linux:
-    1. Open Terminal, navigate to folder:  cd /path/to/folder
-    2. Type:  python3 main.py
+    Shift + Right-click in folder → "Open PowerShell here"
+    Type:  python main.py
 
   ❌ Do NOT double-click — the window will close instantly!
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🖥️  GUI — LEFT PANEL SETTINGS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  GENERATION
-  ───────────
-  Username length      Total length of each generated username
-  Count                How many usernames to check per batch
-  Delay (seconds)      Wait between each request (min 0.5 recommended)
-  Cooldown (seconds)   Wait after each batch before starting the next
-  Use letters          Include a-z and A-Z in usernames
-  Use numbers          Include 0-9 in usernames
-
-  PREFIX
-  ───────
-  Custom prefix        Fixed text at the start (e.g. user, xX, pro)
-  Random prefix        Random letters at the start each time
-  Prefix length        How many random letters to use as prefix
-
-  PROXY
-  ──────
-  Enable proxy         Route requests through a proxy server
-  Address              ip:port  or  user:pass@ip:port
-                       ⚠️ Free proxies may already be banned by Roblox
-                       ✅ Paid private proxies work reliably
-
-  OUTPUT
-  ───────
-  📄 Save to file      Append free usernames to a .txt file
-  📨 Send to Discord   Send each free username to a Discord channel
-                       via webhook (see Discord Webhook section below)
-  💡 Both options can be enabled at the same time
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   📨  DISCORD WEBHOOK SETUP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  How to create a webhook:
-    1. Open Discord → go to the channel you want
-    2. Channel Settings (⚙️) → Integrations → Webhooks
-    3. Click "New Webhook" → Copy Webhook URL
-    4. Paste the URL into the webhook field in the app
+  Discord Webhook and Discord ID are set in config.json
+  directly — open it with Notepad and fill in the values.
 
-  How to get your Discord User ID (for ping):
-    1. Discord Settings → Advanced → turn ON Developer Mode
-    2. Right-click your username anywhere → Copy User ID
-    3. Paste the ID into the Discord User ID field in the app
+  ── How to get Webhook URL ─────────────────────────────────
 
-  When a free username is found, you will receive:
-    • A ping notification (@YourName)
-    • An embed card with the username in a code block
-      so you can copy it with one click
+    1. Open Discord
+    2. Go to the channel where you want to receive usernames
+    3. Click ⚙️ (Edit Channel) → Integrations → Webhooks
+    4. Click "New Webhook"
+    5. Give it a name (e.g. Roblox Gen)
+    6. Click "Copy Webhook URL"
+    7. Paste it into config.json:
+
+       "discord_webhook": "https://discord.com/api/webhooks/..."
+
+  ── How to get your Discord User ID (for ping) ─────────────
+
+    1. Open Discord Settings (bottom left ⚙️)
+    2. Go to Advanced
+    3. Turn ON "Developer Mode"
+    4. Close settings
+    5. Right-click your own username anywhere in Discord
+    6. Click "Copy User ID"
+    7. Paste it into config.json:
+
+       "discord_id": "123456789012345678"
+
+  ── Enable Discord output in the app ───────────────────────
+
+    After filling config.json:
+    1. Run main.py
+    2. Scroll down in the left panel to OUTPUT
+    3. Check the box "📨 Send to Discord webhook"
+    4. Click "💾 Save config"
+
+  When a free username is found you will receive:
+    • A ping (@YourName) if discord_id is set
+    • An embed card with the username in a copyable code block
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🖥️  GUI SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  GENERATION
+    Username length     Total characters in each username
+    Count per batch     How many to check before cooldown
+    Delay (seconds)     Wait between each request
+    Cooldown (sec)      Wait after each batch
+    Threads             Parallel checks (1-5)
+    Auto-pause errors   Pause if N errors in a row
+
+  GENERATION MODE
+    Standard            Prefix + random characters
+    Pattern             e.g. LLDD → KfX3  (L=letter D=digit)
+                        U=uppercase  l=lowercase  _=underscore
+    Readable            Alternating vowels/consonants: KaRoB
+    Underscore          e.g. cool_x1
+    Word-based          e.g. fire42, wolf9
+
+  OUTPUT
+    📄 Save to file     Append to free_usernames.txt
+    📨 Discord webhook  Send to Discord (set URL in config.json)
+
+  NOTIFICATIONS
+    🔔 Sound            Plays a sound when free username found
+    🌐 Open Roblox      Opens Roblox register page automatically
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   🔄  HOW BATCHES WORK
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  The generator runs in a loop — it never stops on its own:
+  Generator runs in a loop forever until you press ■ STOP:
 
-    Batch #1 (checks N usernames)
-      → waits Cooldown seconds
-    Batch #2 (checks N usernames)
-      → waits Cooldown seconds
-    ... and so on until you press ■ STOP
+    Batch #1 → checks N usernames
+    → waits cooldown seconds
+    Batch #2 → checks N usernames
+    → ... and so on
 
-  This prevents IP bans by spacing out requests.
-  Recommended safe settings (no proxy):
-
-    Count:    10
-    Delay:    2.0 sec
-    Cooldown: 60 sec
+  Safe settings without proxy:
+    count: 10  |  delay: 2.0s  |  cooldown: 60s
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ❓  LOG STATUSES
+  ✅  FOUND TAB
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  ✅  Free          Username is available — saved/sent
-  ❌  Taken         Username is already registered
-  ⚠️   No response  No internet, proxy issue, or Roblox rate limit
+  Shows all free usernames found this session.
+  Each row has:
+    📋 Copy    — copies username to clipboard
+    🗑         — removes from list
+  📥 Export CSV — saves the full list as a .csv file
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  💾  CONFIG
+  ❓  LOG COLOURS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  All settings are saved in config.json automatically.
-  You can also click "💾 Save config" in the app at any time.
-  The Discord webhook URL and User ID are saved automatically
-  as you type — no need to press Save.
+  🟢 Green        Free username (standard)
+  🟡 Gold         Free username (≤4 chars — very rare!)
+  🟣 Purple       Free username (5 chars — rare)
+  🔴 Red          Taken
+  🟡 Yellow       No response / error
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
