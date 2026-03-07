@@ -1,8 +1,11 @@
 {
   "total_length": 5,
-  "count": 20,
+  "count": 10,
   "use_numbers": true,
   "use_letters": true,
-  "delay_seconds": 1,
-  "save_file": "free_usernames.txt"
+  "delay_seconds": 2.0,
+  "cooldown_seconds": 60,
+  "save_file": "free_usernames.txt",
+  "discord_webhook": "",
+  "discord_id": ""
 }
